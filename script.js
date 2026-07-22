@@ -1,0 +1,5 @@
+const glow=document.createElement('div');glow.className='cursor-glow';document.body.appendChild(glow);
+window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('visible')),{threshold:.15});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const tilt=document.querySelector('.visual-card');if(tilt){document.querySelector('.visual').addEventListener('pointermove',e=>{const r=tilt.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;tilt.style.transform=`rotateY(${x*8}deg) rotateX(${-y*8}deg)`});document.querySelector('.visual').addEventListener('pointerleave',()=>tilt.style.transform='rotateY(0) rotateX(0)')}
+document.querySelectorAll('[data-count]').forEach(el=>{const end=Number(el.dataset.count);let n=0;const timer=setInterval(()=>{n+=Math.ceil(end/45);if(n>=end){n=end;clearInterval(timer)}el.textContent=n.toLocaleString()},28)});
